@@ -211,7 +211,13 @@
 <p>바로 해봤더니 안되었다.<br>그래서 이래저래 찾아보니 CORS이슈를 해결하기 위해 preflight 요청이란게 있었다.<br>이해한것을 간단하게 정리해보자면,<br>ajax 요청을 하기전에 HTTP OPTIONS METHOD를 통해<br>사전에 타 사이트에서 허용하는 정보들을 받아와서<br>해당 정보를 바탕으로 ajax 요청을 하는것이었다.<br>복잡했다.</p>
 <p>더 간단한건 없을까 찾아봤더니 아래와 같이 백엔드단(php)에서<br>처리가 가능한것 같았다.<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">'Access-Control-Allow-Origin: http://example.com'</span>);</span><br></pre></td></tr></table></figure></p>
 <p>만 추가해주면 된다!! 오오 유레카!!<br>애스테리크(*)는 안되더라…;;</p>
-<p>추가: request, response 하는 두 사이트 protocol이 동일해야한다.(흠…기본적인건가? ㅡ.,ㅡ;;)<br>http =&gt; http (O)<br>https =&gt; https (O)<br>http =&gt; https (X)<br>https =&gt; http (X)</p>
+<p>추가: request, response 하는 두 사이트 protocol이 동일해야한다.(흠…기본적인건가? ㅡ.,ㅡ;;)</p>
+<ol>
+<li>http =&gt; http (O)</li>
+<li>https =&gt; https (O)</li>
+<li>http =&gt; https (X)</li>
+<li>https =&gt; http (X)</li>
+</ol>
 
 
                 
