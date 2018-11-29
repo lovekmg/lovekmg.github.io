@@ -229,7 +229,7 @@
 <li>[Elastic stack 시스템 구축]</li>
 </ol>
 <h3 id="들어가며"><a href="#들어가며" class="headerlink" title="들어가며"></a>들어가며</h3><p>나는 회사에서 특정 서비스를 개발하고 있다.<br>아직 부족한 기능이 많은 서비스였지만, 0에서 부터 시작을 했고, 그것을 “내가” 주도 했기 때문에<br>매우 많은 애착을 가지고 있었다.<br>(그래서 수많은 요구사항에도 불구하고, 매우 긍정적으로 피드백 하고자 노력했다)</p>
-<p>그러던 어느날 올것이 왔다. 통계 기능이 필요하다는 요구사항이 많아지고 있다는 것 이었다.<br>구글<strong>리틱스, 에이스</strong>터 등의 몇가지 통계/분석 서비스를 “연동”한적은 있지만,<br>자체적으로 “구축”을 해본 경험은 전무했던터라 선뜻 하겠다는 얘기 보다는<br>잘 할수 있을까? 라는 생각이 먼저 들긴 했었다.</p>
+<p>그러던 어느날 올것이 왔다. 통계 기능이 필요하다는 요구사항이 많아지고 있다는 것 이었다.<br>구글**리틱스, 에이스**터 등의 몇가지 통계/분석 서비스를 “연동”한적은 있지만,<br>자체적으로 “구축”을 해본 경험은 전무했던터라 선뜻 하겠다는 얘기 보다는<br>잘 할수 있을까? 라는 생각이 먼저 들긴 했었다.</p>
 <h3 id="어떤-도구를-이용할-것인가"><a href="#어떤-도구를-이용할-것인가" class="headerlink" title="어떤 도구를 이용할 것인가?"></a>어떤 도구를 이용할 것인가?</h3><p>하지만 어차피 해야하는것. 뒤로 미룰순 없었다. 부족한 경험으로 인해 정확한 일정이 나오지는<br>않았지만, 대략 기존 다른 프로젝트보다는 많이 걸릴것으로 협업부서에 공유를 하고는<br>무엇부터 해야할지 고민하기 시작했다.<br>(물론 이미 전부터 알고 있었던 elastic stack을 염두에 두고 있기는 했었다)</p>
 <p>일단 Storage 시스템을 골라야 했다.</p>
 <ol>
@@ -254,62 +254,67 @@
 <h3 id="어떻게-할-것인가"><a href="#어떻게-할-것인가" class="headerlink" title="어떻게 할 것인가?"></a>어떻게 할 것인가?</h3><p>내 맘속은 이미 “어시E”(어차피 시스템은 Elastic stack) 였다.<br>위의 장,단점 도 있지만 개발자 특성상 새로운 경험을 해본다는것은 매우 구미가 당기는 부분이었다.<br>물론 주변상황이 Elastic stack을 사용해 볼수 있는 환경이 되기도 했었다.<br>(상황이 안되면 도입하기가 어렵다는것을 느끼시는분들이 있을것이다 분명. ㅎㅎ)</p>
 <p>일단 아는것이 별로 없으니 알아야 하는데, 그전에 전반적인 flow를 생각해봤다.</p>
 <ol>
-<li><p>data 수집<br> 1) 우리 서비스는 중요한 이벤트 마다 log를 상세히(?) 남긴다.<br> 2) DB를 통한 데이터 수집보다는 이게 훨씬 더 안정적이라고 생각했다.<br> 3) filebeats(Elastic stack의 Beats 중 하나) 를 사용하여 로그를 읽어들여서 “data 정제” 단계로 넘긴다.</p>
-<pre><code>- DB io는 비용이 꽤 많이 드는것으로 안다. 반면 로그 file io는 그에 비해 싼편으로 생각했다.
-- 물론 우리는 web과 db 서버가 분리되어 있어서 더욱 그렇다.
-- 평상시에는 web이 db에 비해 많이 놀고 있기 때문에, 우선은 file io를 택했다.
-- 이렇게 하면 운영중인 서버에 크게 부하가 없이, 통계 서비스 제공이 가능하다고 생각했다.
-- Logstash 로 log 수집이 가능하나, 그에 비해 경량 data 수집기인 filebeats를 이용했다.
-</code></pre></li>
-<li><p>data 정제<br> 1) Logstash 를 이용해서 비정형화되어 있는 data를 받는다.<br> 2) elasticsearch에 index mapping에 맞게 변환한다.<br> 3) elasticsearch에 정제된 data를 보낸다.</p>
-<pre><code>- 하다 보니 Logstash로 정제하는 작업이 꽤 비용이 들것으로 예상되었다.
-- Logstash의 부하를 미리 줄여보고자 애초에 log를 남기는 시점에 
-  어느정도 정형화 하여 log를 남기도록 하였다.
-</code></pre></li>
-<li><p>elasticsearch indexing<br> 1) Logstash로 부터 data를 받아서 index 생성 및 인덱싱을 한다.<br> 2) 통계라는것이 시간에 따른 data의 변화이기때문에(시계열 data라고들 하더라), </p>
-<pre><code>index 생성 규칙을 날짜(daily)별로 생성한다.
-</code></pre></li>
+<li><p>data 수집</p>
+<ul>
+<li>우리 서비스는 중요한 이벤트 마다 log를 상세히(?) 남긴다.</li>
+<li>DB를 통한 데이터 수집보다는 이게 훨씬 더 안정적이라고 생각했다.</li>
+<li>filebeats(Elastic stack의 Beats 중 하나) 를 사용하여 로그를 읽어들여서 “data 정제” 단계로 넘긴다.<br>– DB io는 비용이 꽤 많이 드는것으로 안다. 반면 로그 file io는 그에 비해 싼편으로 생각했다.<br>– 물론 우리는 web과 db 서버가 분리되어 있어서 더욱 그렇다.<br>– 평상시에는 web이 db에 비해 많이 놀고 있기 때문에, 우선은 file io를 택했다.<br>– 이렇게 하면 운영중인 서버에 크게 부하가 없이, 통계 서비스 제공이 가능하다고 생각했다.<br>– Logstash 로 log 수집이 가능하나, 그에 비해 경량 data 수집기인 filebeats를 이용했다.</li>
+</ul>
+</li>
+<li><p>data 정제</p>
+<ul>
+<li>Logstash 를 이용해서 비정형화되어 있는 data를 받는다.</li>
+<li>elasticsearch에 index mapping에 맞게 변환한다.</li>
+<li>elasticsearch에 정제된 data를 보낸다.<br>– 하다 보니 Logstash로 정제하는 작업이 꽤 비용이 들것으로 예상되었다.<br>– Logstash의 부하를 미리 줄여보고자 애초에 log를 남기는 시점에 어느정도 정형화 하여 log를 남기도록 하였다.</li>
+</ul>
+</li>
+<li><p>elasticsearch indexing</p>
+<ul>
+<li>Logstash로 부터 data를 받아서 index 생성 및 인덱싱을 한다.</li>
+<li>통계라는것이 시간에 따른 data의 변화이기때문에(시계열 data라고들 하더라), index 생성 규칙을 날짜(daily)별로 생성한다.</li>
+</ul>
+</li>
 </ol>
 <h3 id="통계-데이터를-위한-요구-사항-정리"><a href="#통계-데이터를-위한-요구-사항-정리" class="headerlink" title="통계 데이터를 위한 요구 사항 정리"></a>통계 데이터를 위한 요구 사항 정리</h3><hr>
 <p><strong> 기본 </strong></p>
-<ol>
+<ul>
 <li>총 매출액(=입금 완료 - 환불 금액)</li>
 <li>주문 상태에 따른 주문 건수</li>
 <li>방문자 수(중복 제거)</li>
 <li>결제 금액</li>
 <li>환불 금액</li>
-</ol>
+</ul>
 <hr>
 <p><strong> 채널별 </strong></p>
-<ol>
+<ul>
 <li>총 매출액</li>
 <li>주문 상태에 따른 주문 건수</li>
 <li>방문자 수(중복 제거)</li>
-</ol>
+</ul>
 <hr>
 <p><strong> 결제 수단별 </strong></p>
-<ol>
+<ul>
 <li>총 매출액</li>
 <li>주문수</li>
-</ol>
+</ul>
 <hr>
 <p><strong> 상품별 - 판매 </strong></p>
-<ol>
+<ul>
 <li>총 판매 금액</li>
 <li>총 판매 수량</li>
-</ol>
+</ul>
 <hr>
 <p><strong> 상품별 - 환불 </strong></p>
-<ol>
+<ul>
 <li>총 환불 금액</li>
 <li>총 환불 수량</li>
-</ol>
+</ul>
 <hr>
 <p><strong> 상품별 - 채널 인기 </strong></p>
-<ol>
+<ul>
 <li>총 판매 금액</li>
 <li>총 판매 수량</li>
-</ol>
+</ul>
 <hr>
 <p><strong> 결론 </strong></p>
 <ul>
