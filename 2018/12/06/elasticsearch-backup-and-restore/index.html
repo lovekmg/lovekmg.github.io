@@ -23,7 +23,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="lovekmg 기술 블로그"/>
+        <meta property="og:title" content="elasticsearch-backup-and-restore"/>
     
 
     <!--Open Graph Description-->
@@ -36,7 +36,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -55,7 +55,7 @@
 
     <!-- Title -->
     
-    <title>elasticsearch - lovekmg 기술 블로그</title>
+    <title>elasticsearch-backup-and-restore - lovekmg 기술 블로그</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -170,75 +170,120 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>#elasticsearch</h1>
+                <div class="post-heading">
+                    <h1>elasticsearch-backup-and-restore</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-12-06
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/elasticsearch/">#elasticsearch</a> <a href="/tags/backup/">#backup</a> <a href="/tags/restore/">#restore</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
             
-                <div class="post-preview">
-    <a href="/2018/12/06/elasticsearch-backup-and-restore/">
-        <h1 class="post-title archive">
-            elasticsearch-backup-and-restore
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-12-06
-    </p>
-</div>
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2018/11/27/elastic-stack-study-data/">
-        <h1 class="post-title archive">
-            elastic-stack 발표 자료-1
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-11-27
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/10/11/elasticsearch-1/">
-        <h1 class="post-title archive">
-            elasticsearch-1 기본 명령어
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-10-11
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="elasticsearch-백업-및-복구-정책"><a href="#elasticsearch-백업-및-복구-정책" class="headerlink" title="elasticsearch 백업 및 복구 정책"></a>elasticsearch 백업 및 복구 정책</h1><ol>
+<li>snapshot 의 path를 외부 서버로 둘수 있는가?<ul>
+<li>type이 fs, s3, azure, hdfs 정도다.</li>
+<li>curator에 snapshot 기능이 있다.</li>
+<li>snapshot &amp; restore가 빠르지만, aliasing은 복구를 못한다고함.</li>
+<li>기존 존재하는 인덱스에 복구시에는 같은 수에 shards를 가지고 있는지와 반드시 해당 인덱스를 closed 하고 난 다음 진행해야 함.</li>
 </ul>
+</li>
+</ol>
+<ol start="2">
+<li>local에 snapshot을 하고, 해당 결과물 파일로 백업(외부서버) 및 복구가 가능한가?<ul>
+<li>가능함. path.repo에 등록한 디렉토리 통으로 tar 압축.</li>
+</ul>
+</li>
+</ol>
+<ol start="3">
+<li>dump file(json 파일)을 백업하고 복구(_bulk API 사용) 가능한가?<ul>
+<li>mysqldump 와 비슷한듯.</li>
+<li>dump 타입에 따라 mapping(scheme), data 별도로 dump 가능.</li>
+<li>복구 시 시간이 오래 걸림</li>
+</ul>
+</li>
+</ol>
+<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>2번 방법으로 진행하고, 해당 디렉토리를 tar 압축하여 별도의 백업서버에 저장하는 방법이 좋을듯합니다.</p>
+<h1 id="상세-코드"><a href="#상세-코드" class="headerlink" title="상세 코드"></a>상세 코드</h1><h2 id="백업"><a href="#백업" class="headerlink" title="백업"></a>백업</h2><ol>
+<li>백업 repository 생성<br>~~<br>PUT /_snapshot/mysoho_statistics_backup<br>{<br>“type”: “fs”,<br>“settings”: {<br> “location”: “/backup/elasticsearch”,<br> “compress”: true<br>}<br>}<br>~~</li>
+</ol>
+<ol start="2">
+<li>snapshot 생성<br>~~<br>PUT /_snapshot/mysoho_statistics_backup/mysoho-2018.12.06?wait_for_completion=true<br>{<br>“indices”: “mysoho-*”,<br>“ignore_unavailable”: true,<br>“include_global_state”: false<br>}<br>~~<br>기본적으로 비동기로 처리되기 때문에, wait_for_completion 파라미터를 주어서, snapshot 생성 종료여부를 확인한다.</li>
+</ol>
+<ol start="3">
+<li>snapshot 삭제<br>~~<br>DELETE /_snapshot/mysoho_statistics_backup/mysoho-2018.12.06<br>~~</li>
+</ol>
+<ol start="4">
+<li>repository 삭제<br>~~<br>DELETE /_snapshot/mysoho_statistics_backup<br>~~<br>snapshot이 있는 상태에서 repository를 삭제한다고 snapshot이 같이 삭제되지는 않는다.<br>동일 name으로 repository를 다시 생성하면, snapshot은 살아 있다.</li>
+</ol>
+<ol start="5">
+<li>특정 repository의 스냅샷 목록 확인<br>~~<br>GET /_cat/snapshots/mysoho_statistics_backup?v<br>~~</li>
+</ol>
+<h2 id="복구"><a href="#복구" class="headerlink" title="복구"></a>복구</h2><ol>
+<li>특정 snapshot 을 이용한 복구<br>~~<br>POST /_snapshot/mysoho_statistics_backup/mysoho-2018.12.06/_restore<br>{<br>“indices”: “mysoho-*”,<br>“ignore_unavailable”: true,<br>“include_global_state”: false<br>}<br>~~<br>indices 파라미터를 주지 않으면 전체 복구.</li>
+</ol>
+<ol start="2">
+<li>open 상태의 index 복구<br>~~<br>POST /mysoho-*/_close</li>
+</ol>
+<p>POST /_snapshot/mysoho_statistics_backup/mysoho-2018.12.06/_restore<br>{<br>  “indices”: “mysoho-*”,<br>  “ignore_unavailable”: true,<br>  “include_global_state”: false<br>}</p>
+<p>POST /mysoho-*/_open<br>~~</p>
+<h1 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h1><p><a href="http://knight76.tistory.com/entry/Elasticsearch-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC" target="_blank" rel="noopener">http://knight76.tistory.com/entry/Elasticsearch-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC</a><br><a href="https://qbox.io/blog/elasticsearch-data-snapshots-restore-tutorial" target="_blank" rel="noopener">https://qbox.io/blog/elasticsearch-data-snapshots-restore-tutorial</a><br>[<a href="http://jjeong.tistory.com/tag/elasticsearch?page=1(http://jjeong.tistory.com/tag/elasticsearch?page=1)]" target="_blank" rel="noopener">http://jjeong.tistory.com/tag/elasticsearch?page=1(http://jjeong.tistory.com/tag/elasticsearch?page=1)]</a><br><a href="https://lahuman.github.io/elastic_dump" target="_blank" rel="noopener">https://lahuman.github.io/elastic_dump</a><br><a href="https://github.com/taskrabbit/elasticsearch-dump" target="_blank" rel="noopener">https://github.com/taskrabbit/elasticsearch-dump</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
