@@ -245,28 +245,28 @@
 </ol>
 <h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>2번 방법으로 진행하고, 해당 디렉토리를 tar 압축하여 별도의 백업서버에 저장하는 방법이 좋을듯합니다.</p>
 <h1 id="상세-코드"><a href="#상세-코드" class="headerlink" title="상세 코드"></a>상세 코드</h1><h2 id="백업"><a href="#백업" class="headerlink" title="백업"></a>백업</h2><ol>
-<li>백업 repository 생성<br>~~<br>PUT /_snapshot/mysoho_statistics_backup<br>{<br>“type”: “fs”,<br>“settings”: {<br> “location”: “/backup/elasticsearch”,<br> “compress”: true<br>}<br>}<br>~~</li>
+<li>백업 repository 생성<br>~~<br>PUT /_snapshot/test_statistics_backup<br>{<br>“type”: “fs”,<br>“settings”: {<br> “location”: “/backup/elasticsearch”,<br> “compress”: true<br>}<br>}<br>~~</li>
 </ol>
 <ol start="2">
-<li>snapshot 생성<br>~~<br>PUT /_snapshot/mysoho_statistics_backup/mysoho-2018.12.06?wait_for_completion=true<br>{<br>“indices”: “mysoho-*”,<br>“ignore_unavailable”: true,<br>“include_global_state”: false<br>}<br>~~<br>기본적으로 비동기로 처리되기 때문에, wait_for_completion 파라미터를 주어서, snapshot 생성 종료여부를 확인한다.</li>
+<li>snapshot 생성<br>~~<br>PUT /_snapshot/test_statistics_backup/test-2018.12.06?wait_for_completion=true<br>{<br>“indices”: “test-*”,<br>“ignore_unavailable”: true,<br>“include_global_state”: false<br>}<br>~~<br>기본적으로 비동기로 처리되기 때문에, wait_for_completion 파라미터를 주어서, snapshot 생성 종료여부를 확인한다.</li>
 </ol>
 <ol start="3">
-<li>snapshot 삭제<br>~~<br>DELETE /_snapshot/mysoho_statistics_backup/mysoho-2018.12.06<br>~~</li>
+<li>snapshot 삭제<br>~~<br>DELETE /_snapshot/test_statistics_backup/test-2018.12.06<br>~~</li>
 </ol>
 <ol start="4">
-<li>repository 삭제<br>~~<br>DELETE /_snapshot/mysoho_statistics_backup<br>~~<br>snapshot이 있는 상태에서 repository를 삭제한다고 snapshot이 같이 삭제되지는 않는다.<br>동일 name으로 repository를 다시 생성하면, snapshot은 살아 있다.</li>
+<li>repository 삭제<br>~~<br>DELETE /_snapshot/test_statistics_backup<br>~~<br>snapshot이 있는 상태에서 repository를 삭제한다고 snapshot이 같이 삭제되지는 않는다.<br>동일 name으로 repository를 다시 생성하면, snapshot은 살아 있다.</li>
 </ol>
 <ol start="5">
-<li>특정 repository의 스냅샷 목록 확인<br>~~<br>GET /_cat/snapshots/mysoho_statistics_backup?v<br>~~</li>
+<li>특정 repository의 스냅샷 목록 확인<br>~~<br>GET /_cat/snapshots/test_statistics_backup?v<br>~~</li>
 </ol>
 <h2 id="복구"><a href="#복구" class="headerlink" title="복구"></a>복구</h2><ol>
-<li>특정 snapshot 을 이용한 복구<br>~~<br>POST /_snapshot/mysoho_statistics_backup/mysoho-2018.12.06/_restore<br>{<br>“indices”: “mysoho-*”,<br>“ignore_unavailable”: true,<br>“include_global_state”: false<br>}<br>~~<br>indices 파라미터를 주지 않으면 전체 복구.</li>
+<li>특정 snapshot 을 이용한 복구<br>~~<br>POST /_snapshot/test_statistics_backup/test-2018.12.06/_restore<br>{<br>“indices”: “test-*”,<br>“ignore_unavailable”: true,<br>“include_global_state”: false<br>}<br>~~<br>indices 파라미터를 주지 않으면 전체 복구.</li>
 </ol>
 <ol start="2">
-<li>open 상태의 index 복구<br>~~<br>POST /mysoho-*/_close</li>
+<li>open 상태의 index 복구<br>~~<br>POST /test-*/_close</li>
 </ol>
-<p>POST /_snapshot/mysoho_statistics_backup/mysoho-2018.12.06/_restore<br>{<br>  “indices”: “mysoho-*”,<br>  “ignore_unavailable”: true,<br>  “include_global_state”: false<br>}</p>
-<p>POST /mysoho-*/_open<br>~~</p>
+<p>POST /_snapshot/test_statistics_backup/test-2018.12.06/_restore<br>{<br>  “indices”: “test-*”,<br>  “ignore_unavailable”: true,<br>  “include_global_state”: false<br>}</p>
+<p>POST /test-*/_open<br>~~</p>
 <h1 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h1><p><a href="http://knight76.tistory.com/entry/Elasticsearch-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC" target="_blank" rel="noopener">http://knight76.tistory.com/entry/Elasticsearch-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC</a><br><a href="https://qbox.io/blog/elasticsearch-data-snapshots-restore-tutorial" target="_blank" rel="noopener">https://qbox.io/blog/elasticsearch-data-snapshots-restore-tutorial</a><br>[<a href="http://jjeong.tistory.com/tag/elasticsearch?page=1(http://jjeong.tistory.com/tag/elasticsearch?page=1)]" target="_blank" rel="noopener">http://jjeong.tistory.com/tag/elasticsearch?page=1(http://jjeong.tistory.com/tag/elasticsearch?page=1)]</a><br><a href="https://lahuman.github.io/elastic_dump" target="_blank" rel="noopener">https://lahuman.github.io/elastic_dump</a><br><a href="https://github.com/taskrabbit/elasticsearch-dump" target="_blank" rel="noopener">https://github.com/taskrabbit/elasticsearch-dump</a></p>
 
 
