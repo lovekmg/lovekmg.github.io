@@ -23,7 +23,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="lovekmg 기술 블로그"/>
+        <meta property="og:title" content="nginx-error-page-setting"/>
     
 
     <!--Open Graph Description-->
@@ -36,7 +36,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -55,7 +55,7 @@
 
     <!-- Title -->
     
-    <title>Archives - lovekmg 기술 블로그</title>
+    <title>nginx-error-page-setting - lovekmg 기술 블로그</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -170,153 +170,82 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Archives</h1>
+                <div class="post-heading">
+                    <h1>nginx-error-page-setting</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-08-31
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/nginx/">#nginx</a> <a href="/tags/web/">#web</a> <a href="/tags/error/">#error</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
             
-                <div class="post-preview">
-    <a href="/2019/01/16/elastic-stack-reference/">
-        <h1 class="post-title archive">
-            elastic-stack-참고자료
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-01-16
-    </p>
-</div>
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2018/12/06/elasticsearch-backup-and-restore/">
-        <h1 class="post-title archive">
-            elasticsearch-backup-and-restore
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-12-06
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="nginx-error-page-셋팅"><a href="#nginx-error-page-셋팅" class="headerlink" title="nginx error page 셋팅"></a>nginx error page 셋팅</h1><p>요즘 웹서비스에서는 error 페이지도 “사이트목적에 맞는 활동”을 할수 있는 “공간”으로 인식하고 있는듯하다.<br>ex) 유명 포탈 사이트들은 404 Not Found 페이지에 광고(비슷한 뭔가?)가 나오는 경우도 본듯하다.<br>즉, 더이상 error page는 예전처럼 단순히 error page는 아니게 되었다.</p>
+<p>nginx 에서는 이러한 error page를 403, 404, 500 등 http status code에 따라 설정하여 노출할수 있다.<br>설정 방법은 <a href="https://docs.nginx.com/nginx/admin-guide/web-server/web-server/#handling-errors" target="_blank" rel="noopener">nginx 공식 문서</a>를 참고.</p>
+<p>간단히 정리하면<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_page</span> <span class="number">404</span> /error.html;</span><br></pre></td></tr></table></figure></p>
+<p>정도가 되겠다.(nginx.conf에서 원하는 server, location등의 블럭안에 넣으면 된다.)</p>
+<p>근데 여기까지면 이글을 안썼지.<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_page</span> <span class="number">404</span> = /error.html;</span><br></pre></td></tr></table></figure></p>
+<p>을 하고 크롬에서 확인해보면  http status code가 200이다.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_page</span> <span class="number">404</span> =<span class="number">404</span> /error.html;</span><br></pre></td></tr></table></figure>
+<p>을 하고 크롬에서 확인해보면  http status code가 404이다.</p>
+<p>둘의 공통점은 error.html 페이지가 노출이 된다는것이고,<br>http status code가 달랐다.</p>
+<p>사실 이 글은 <a href="https://docs.nginx.com/nginx/admin-guide/web-server/web-server/#handling-errors" target="_blank" rel="noopener">nginx 공식 문서</a>를 잘 읽어봤으면 작성하지 않았을수도 있는 글이다.<br>역시 기본(레퍼런스)이 중요하구나!!를 다시한번 깨닫게 되는순간….ㅡ.,ㅡ;;</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2018/12/03/vim-tip-1/">
-        <h1 class="post-title archive">
-            vim-tip-1
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-12-03
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2018/11/27/elastic-stack-study-data/">
-        <h1 class="post-title archive">
-            elastic-stack 발표 자료-1
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-11-27
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/10/22/use-google-otp-on-ssh/">
-        <h1 class="post-title archive">
-            use google-otp on ssh
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-10-22
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/10/11/elasticsearch-1/">
-        <h1 class="post-title archive">
-            elasticsearch-1 기본 명령어
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-10-11
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/31/nginx-error-page-setting/">
-        <h1 class="post-title archive">
-            nginx-error-page-setting
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-31
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/22/php-cors-issue/">
-        <h1 class="post-title archive">
-            php-cors-issue
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-22
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/22/first-post/">
-        <h1 class="post-title archive">
-            github으로 간단 blog 만들기
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-22
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />

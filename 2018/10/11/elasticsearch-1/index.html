@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="기억력의 한계를 극복하기 위한 blog"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="lovekmg"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="elasticsearch-1 기본 명령어"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="기억력의 한계를 극복하기 위한 blog"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="lovekmg 기술 블로그"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="https://lovekmg.github.iohttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="https://lovekmg.github.iohttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+    <!-- Title -->
+    
+    <title>elasticsearch-1 기본 명령어 - lovekmg 기술 블로그</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-125048379-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+    <!-- favicon -->
+    
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Lovekmg Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/lovekmg/lovekmg.github.io">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>elasticsearch-1 기본 명령어</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-10-11
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/elasticsearch/">#elasticsearch</a> <a href="/tags/search/">#search</a> <a href="/tags/search-engine/">#search engine</a> <a href="/tags/elk-stack/">#elk stack</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="Elasticsearch-기본-명령어-정리"><a href="#Elasticsearch-기본-명령어-정리" class="headerlink" title="Elasticsearch 기본 명령어(?) 정리"></a>Elasticsearch 기본 명령어(?) 정리</h1><p>elasticsearch는 rest api를 지원하기 때문에 명령어가 맞는 표현인지는 모르겠다.<br>여튼 linux command 중 하나인 curl을 이용해서 간단히 명령어를 정리해 보려고 한다.<br>참고로, 설치가 되었다는 가정하에 정리해본 내용이다. (설치 과정은 검색해보면 많이 나온다.)</p>
+<h2 id="목차"><a href="#목차" class="headerlink" title="목차"></a>목차</h2><ol>
+<li><a href="#elasticsearch-설치-및-구동-여부-확인">elasticsearch 설치 및 구동 여부 확인</a></li>
+<li><a href="#index-생성">index 생성</a></li>
+<li><a href="#index-리스트-확인">index 리스트 확인</a></li>
+<li><a href="#index-삭제">index 삭제</a></li>
+<li><a href="#index-mapping">index mapping</a></li>
+</ol>
+<h3 id="elasticsearch-설치-및-구동-여부-확인"><a href="#elasticsearch-설치-및-구동-여부-확인" class="headerlink" title="elasticsearch 설치 및 구동 여부 확인"></a>elasticsearch 설치 및 구동 여부 확인</h3><p>명령어<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET <span class="string">'localhost:9200'</span></span><br></pre></td></tr></table></figure></p>
+<p>결과<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span> : <span class="string">"lovekmg-server"</span>,</span><br><span class="line">  <span class="attr">"cluster_name"</span> : <span class="string">"es-demo"</span>,</span><br><span class="line">  <span class="attr">"cluster_uuid"</span> : <span class="string">"W-sw01R7RMqtBzXsdhT89g"</span>,</span><br><span class="line">  <span class="attr">"version"</span> : &#123;</span><br><span class="line">    <span class="attr">"number"</span> : <span class="string">"6.4.0"</span>,</span><br><span class="line">    <span class="attr">"build_flavor"</span> : <span class="string">"default"</span>,</span><br><span class="line">    <span class="attr">"build_type"</span> : <span class="string">"rpm"</span>,</span><br><span class="line">    <span class="attr">"build_hash"</span> : <span class="string">"595516e"</span>,</span><br><span class="line">    <span class="attr">"build_date"</span> : <span class="string">"2018-08-17T23:18:47.308994Z"</span>,</span><br><span class="line">    <span class="attr">"build_snapshot"</span> : <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"lucene_version"</span> : <span class="string">"7.4.0"</span>,</span><br><span class="line">    <span class="attr">"minimum_wire_compatibility_version"</span> : <span class="string">"5.6.0"</span>,</span><br><span class="line">    <span class="attr">"minimum_index_compatibility_version"</span> : <span class="string">"5.0.0"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"tagline"</span> : <span class="string">"You Know, for Search"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="index-생성"><a href="#index-생성" class="headerlink" title="index 생성"></a>index 생성</h3><p>명령어<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT <span class="string">'localhost:9200/test_index?pretty'</span></span><br></pre></td></tr></table></figure></p>
+<p>결과<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"acknowledged"</span> : <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"shards_acknowledged"</span> : <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"index"</span> : <span class="string">"test_index"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="index-리스트-확인"><a href="#index-리스트-확인" class="headerlink" title="index 리스트 확인"></a>index 리스트 확인</h3><p>명령어<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET <span class="string">'localhost:9200/_cat/indices?v'</span></span><br></pre></td></tr></table></figure></p>
+<p>결과<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">health status index                           uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">green  open   .monitoring-kibana-6-2018.10.10 va_9eCNTT2mmrir106tc3A   1   0       6867            0      1.7mb          1.7mb</span><br><span class="line">yellow open   my_index                        LbvkBxj_Rfa6KjMDz75I8w   5   1          2            0      6.4kb          6.4kb</span><br></pre></td></tr></table></figure></p>
+<h3 id="index-삭제"><a href="#index-삭제" class="headerlink" title="index 삭제"></a>index 삭제</h3><p>명령어<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XDELETE <span class="string">'localhost:9200/test_index?pretty'</span></span><br></pre></td></tr></table></figure></p>
+<p>결과<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"acknowledged"</span> : <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="index-mapping"><a href="#index-mapping" class="headerlink" title="index mapping"></a>index mapping</h3><ol>
+<li>index 생성시 지정<br>명령어<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 6.x부터인가 get 외에는 header 추가해줘야함</span></span><br><span class="line">curl -XPUT -H <span class="string">'content-type:application/json'</span> <span class="string">'localhost:9200/index_create_text_1'</span> -d <span class="string">'&#123;</span></span><br><span class="line"><span class="string">    "mappings" : &#123;</span></span><br><span class="line"><span class="string">        "board" : &#123;</span></span><br><span class="line"><span class="string">            "properties" : &#123;</span></span><br><span class="line"><span class="string">                "board_id" : &#123;</span></span><br><span class="line"><span class="string">                    "type" : "integer"</span></span><br><span class="line"><span class="string">                &#125;,</span></span><br><span class="line"><span class="string">                "subject" : &#123;</span></span><br><span class="line"><span class="string">                    "type" : "text",</span></span><br><span class="line"><span class="string">                    "fields" : &#123;</span></span><br><span class="line"><span class="string">                        "keyword" : &#123;</span></span><br><span class="line"><span class="string">                            "type" : "keyword",</span></span><br><span class="line"><span class="string">                            "ignore_above" : 256</span></span><br><span class="line"><span class="string">                        &#125;</span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                &#125;,</span></span><br><span class="line"><span class="string">                "content" : &#123;</span></span><br><span class="line"><span class="string">                    "type" : "text",</span></span><br><span class="line"><span class="string">                    "fields" : &#123;</span></span><br><span class="line"><span class="string">                        "keyword" : &#123;</span></span><br><span class="line"><span class="string">                            "type" : "keyword",</span></span><br><span class="line"><span class="string">                            "ignore_above" : 256</span></span><br><span class="line"><span class="string">                        &#125;</span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                &#125;,</span></span><br><span class="line"><span class="string">                "created_at" : &#123;</span></span><br><span class="line"><span class="string">                    "type" : "date",</span></span><br><span class="line"><span class="string">                    "format" : "yyyy-MM-dd HH:mm:ss"</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>결과<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"acknowledged"</span>:<span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"shards_acknowledged"</span>:<span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"index"</span>:<span class="string">"index_create_text_1"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>index 만 생성 후 mappings 추가<br>명령어<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index 생성</span></span><br><span class="line">curl -XPUT -H <span class="string">'content-type:application/json'</span> <span class="string">'localhost:9200/index_create_text_2?pretty'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>결과<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"acknowledged"</span> : <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"shards_acknowledged"</span> : <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"index"</span> : <span class="string">"index_create_text_2"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>명령어<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index 생성 후 mappings 추가</span></span><br><span class="line">curl -XPUT -H <span class="string">'content-type:application/json'</span> <span class="string">'localhost:9200/index_create_text_2/_mapping/board?pretty'</span> -d <span class="string">'&#123;</span></span><br><span class="line"><span class="string">    "properties" : &#123;</span></span><br><span class="line"><span class="string">        "board_id" : &#123;</span></span><br><span class="line"><span class="string">            "type" : "integer"</span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        "subject" : &#123;</span></span><br><span class="line"><span class="string">            "type" : "text",</span></span><br><span class="line"><span class="string">            "fields" : &#123;</span></span><br><span class="line"><span class="string">                "keyword" : &#123;</span></span><br><span class="line"><span class="string">                    "type" : "keyword",</span></span><br><span class="line"><span class="string">                    "ignore_above" : 256</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        "content" : &#123;</span></span><br><span class="line"><span class="string">            "type" : "text",</span></span><br><span class="line"><span class="string">            "fields" : &#123;</span></span><br><span class="line"><span class="string">                "keyword" : &#123;</span></span><br><span class="line"><span class="string">                    "type" : "keyword",</span></span><br><span class="line"><span class="string">                    "ignore_above" : 256</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        "created_at" : &#123;</span></span><br><span class="line"><span class="string">            "type" : "date",</span></span><br><span class="line"><span class="string">            "format" : "yyyy-MM-dd HH:mm:ss"</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;'</span></span><br></pre></td></tr></table></figure></p>
+<p>결과<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"acknowledged"</span> : <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/lovekmg/lovekmg.github.io" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 lovekmg<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

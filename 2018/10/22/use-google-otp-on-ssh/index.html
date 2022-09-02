@@ -23,7 +23,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="lovekmg 기술 블로그"/>
+        <meta property="og:title" content="use google-otp on ssh"/>
     
 
     <!--Open Graph Description-->
@@ -36,7 +36,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -55,7 +55,7 @@
 
     <!-- Title -->
     
-    <title>Archives - lovekmg 기술 블로그</title>
+    <title>use google-otp on ssh - lovekmg 기술 블로그</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -170,153 +170,88 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Archives</h1>
+                <div class="post-heading">
+                    <h1>use google-otp on ssh</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-10-22
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/linux/">#linux</a> <a href="/tags/google-otp/">#google-otp</a> <a href="/tags/secure/">#secure</a> <a href="/tags/ssh/">#ssh</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
             
-                <div class="post-preview">
-    <a href="/2019/01/16/elastic-stack-reference/">
-        <h1 class="post-title archive">
-            elastic-stack-참고자료
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-01-16
-    </p>
-</div>
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2018/12/06/elasticsearch-backup-and-restore/">
-        <h1 class="post-title archive">
-            elasticsearch-backup-and-restore
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-12-06
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="ssh서버-ubuntu-에-google-otp-사용하기"><a href="#ssh서버-ubuntu-에-google-otp-사용하기" class="headerlink" title="ssh서버(ubuntu)에 google-otp 사용하기"></a>ssh서버(ubuntu)에 google-otp 사용하기</h1><p>ssh 서버에 google-otp를 설치하여 인증 강화 해보자</p>
+<h2 id="목차"><a href="#목차" class="headerlink" title="목차"></a>목차</h2><ol>
+<li><a href="#패키지-설치">패키지 설치</a></li>
+<li><a href="#/etc/pam.d/sshd-설정">/etc/pam.d/sshd 설정</a></li>
+<li><a href="#/etc/ssh/sshd_config-설정">/etc/ssh/sshd_config 설정</a></li>
+<li><a href="#google-authenticator-실행">google-authenticator 실행</a></li>
+</ol>
+<h3 id="패키지-설치"><a href="#패키지-설치" class="headerlink" title="패키지-설치"></a>패키지-설치</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libpam-google-authenticator</span><br></pre></td></tr></table></figure>
+<h3 id="etc-pam-d-sshd-설정"><a href="#etc-pam-d-sshd-설정" class="headerlink" title="/etc/pam.d/sshd 설정"></a>/etc/pam.d/sshd 설정</h3><p>최상단에 아래 코드 추가<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_google_authenticator.so</span><br></pre></td></tr></table></figure></p>
+<h3 id="etc-ssh-sshd-config-설정"><a href="#etc-ssh-sshd-config-설정" class="headerlink" title="/etc/ssh/sshd_config 설정"></a>/etc/ssh/sshd_config 설정</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PasswordAuthentication no</span><br><span class="line">ChallengeResponseAuthentication yes</span><br><span class="line">UsePAM yes</span><br></pre></td></tr></table></figure>
+<p>위 설정 이후 ssh 서버 재시작<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service ssh restart</span><br></pre></td></tr></table></figure></p>
+<h3 id="google-authenticator-실행"><a href="#google-authenticator-실행" class="headerlink" title="google-authenticator 실행"></a>google-authenticator 실행</h3><p>이후부터는 google-otp를 적용하려는 계정으로 로그인 후 아래 명령어 실행<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google-authenticator</span><br></pre></td></tr></table></figure></p>
+<p>그럼 QRcode랑 secret key, scratch codes등이 나오고<br>이거저러 물어보는데, 대부분 y로 하면 된다.</p>
+<p>이제는 QRcode 또는 secret key를 GoogleOTP 앱에 등록하면 ssh 접속 할때 마다<br>otp 번호를 물어보게 된다.</p>
+<p>즉, 기존 ssh 접속시에는 password만 입력하여 접속했다면,<br>이제는 google-otp 입력 -&gt; password 입력 순으로 1단계가 추가되었다.</p>
+<p>참조 링크<br><a href="https://forum.ubuntu-kr.org/viewtopic.php?t=23022" target="_blank" rel="noopener">https://forum.ubuntu-kr.org/viewtopic.php?t=23022</a><br><a href="https://www.lesstif.com/pages/viewpage.action?pageId=24444948" target="_blank" rel="noopener">https://www.lesstif.com/pages/viewpage.action?pageId=24444948</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2018/12/03/vim-tip-1/">
-        <h1 class="post-title archive">
-            vim-tip-1
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-12-03
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2018/11/27/elastic-stack-study-data/">
-        <h1 class="post-title archive">
-            elastic-stack 발표 자료-1
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-11-27
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/10/22/use-google-otp-on-ssh/">
-        <h1 class="post-title archive">
-            use google-otp on ssh
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-10-22
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/10/11/elasticsearch-1/">
-        <h1 class="post-title archive">
-            elasticsearch-1 기본 명령어
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-10-11
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/31/nginx-error-page-setting/">
-        <h1 class="post-title archive">
-            nginx-error-page-setting
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-31
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/22/php-cors-issue/">
-        <h1 class="post-title archive">
-            php-cors-issue
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-22
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/22/first-post/">
-        <h1 class="post-title archive">
-            github으로 간단 blog 만들기
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-22
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
