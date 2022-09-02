@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <!-- Head tag -->
 <head>
@@ -13,12 +13,17 @@
     
 
     
-        <meta name="description" content="기억력의 한계를 극복하기 위한 blog"/>
+        <meta name="description" content="elasticsearch 백업 및 복구 정책
+snapshot 의 path를 외부 서버로 둘수 있는가?
+
+type이 fs, s3, azure, hdfs 정도다.
+curator에 snapshot 기능이 있다.
+snapshot &amp;amp; restore가 빠르지만, alias"/>
     
 
     <!--Author-->
     
-        <meta name="author" content="lovekmg"/>
+        <meta name="author" content="John Doe"/>
     
 
     <!--Open Graph Title-->
@@ -28,11 +33,16 @@
 
     <!--Open Graph Description-->
     
-        <meta property="og:description" content="기억력의 한계를 극복하기 위한 blog"/>
+        <meta property="og:description" content="elasticsearch 백업 및 복구 정책
+snapshot 의 path를 외부 서버로 둘수 있는가?
+
+type이 fs, s3, azure, hdfs 정도다.
+curator에 snapshot 기능이 있다.
+snapshot &amp;amp; restore가 빠르지만, alias"/>
     
 
     <!--Open Graph Site Name-->
-        <meta property="og:site_name" content="lovekmg 기술 블로그"/>
+        <meta property="og:site_name" content="Hexo"/>
 
     <!--Type page-->
     
@@ -42,7 +52,7 @@
     <!--Page Cover-->
     
     
-        <meta property="og:image" content="https://lovekmg.github.iohttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+        <meta property="og:image" content="http://example.comimg/home-bg.jpg"/>
     
 
         <meta name="twitter:card" content="summary_large_image"/>
@@ -50,20 +60,20 @@
     
 
     
-        <meta name="twitter:image" content="https://lovekmg.github.iohttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+        <meta name="twitter:image" content="http://example.comimg/home-bg.jpg"/>
     
 
     <!-- Title -->
     
-    <title>elasticsearch-backup-and-restore - lovekmg 기술 블로그</title>
+    <title>elasticsearch-backup-and-restore - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
 
     <!-- Custom Fonts -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -82,23 +92,12 @@
 
     <!-- Google Analytics -->
     
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-125048379-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
-
 
 
     <!-- favicon -->
     
 
-</head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 
 <body>
@@ -115,7 +114,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Lovekmg Blog</a>
+            <a class="navbar-brand" href="/">Configurable Title</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -155,7 +154,7 @@
                     </li>
                 
                     <li>
-                        <a href="https://github.com/lovekmg/lovekmg.github.io">
+                        <a target="_blank" rel="noopener" href="https://github.com/klugjo/hexo-theme-clean-blog">
                             
                                 <i class="fa fa-github fa-stack-2x"></i>
                             
@@ -173,7 +172,7 @@
     <!-- Page Header -->
 <!-- Set your background image for this header in your post front-matter: cover -->
 
-<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -212,6 +211,11 @@
                 </div>
                 <div class="col-lg-4 col-md-5 post-categories">
                     
+                        
+
+<a href="/categories/old-posts/">old-posts</a>
+
+                    
                 </div>
             
 
@@ -220,62 +224,73 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h1 id="elasticsearch-백업-및-복구-정책"><a href="#elasticsearch-백업-및-복구-정책" class="headerlink" title="elasticsearch 백업 및 복구 정책"></a>elasticsearch 백업 및 복구 정책</h1><ol>
-<li>snapshot 의 path를 외부 서버로 둘수 있는가?<ul>
+                <h1 id="elasticsearch-백업-및-복구-정책"><a href="#elasticsearch-백업-및-복구-정책" class="headerlink" title="elasticsearch 백업 및 복구 정책"></a><a href="#elasticsearch-%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC-%EC%A0%95%EC%B1%85" title="elasticsearch 백업 및 복구 정책"></a>elasticsearch 백업 및 복구 정책</h1><ol>
+<li><p>snapshot 의 path를 외부 서버로 둘수 있는가?</p>
+<ul>
 <li>type이 fs, s3, azure, hdfs 정도다.</li>
 <li>curator에 snapshot 기능이 있다.</li>
 <li>snapshot &amp; restore가 빠르지만, aliasing은 복구를 못한다고함.</li>
 <li>기존 존재하는 인덱스에 복구시에는 같은 수에 shards를 가지고 있는지와 반드시 해당 인덱스를 closed 하고 난 다음 진행해야 함.</li>
 </ul>
 </li>
-</ol>
-<ol start="2">
-<li>local에 snapshot을 하고, 해당 결과물 파일로 백업(외부서버) 및 복구가 가능한가?<ul>
+<li><p>local에 snapshot을 하고, 해당 결과물 파일로 백업(외부서버) 및 복구가 가능한가?</p>
+<ul>
 <li>가능함. path.repo에 등록한 디렉토리 통으로 tar 압축.</li>
 </ul>
 </li>
-</ol>
-<ol start="3">
-<li>dump file(json 파일)을 백업하고 복구(_bulk API 사용) 가능한가?<ul>
+<li><p>dump file(json 파일)을 백업하고 복구(_bulk API 사용) 가능한가?</p>
+<ul>
 <li>mysqldump 와 비슷한듯.</li>
 <li>dump 타입에 따라 mapping(scheme), data 별도로 dump 가능.</li>
 <li>복구 시 시간이 오래 걸림</li>
 </ul>
 </li>
 </ol>
-<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><p>2번 방법으로 진행하고, 해당 디렉토리를 tar 압축하여 별도의 백업서버에 저장하는 방법이 좋을듯합니다.</p>
-<h1 id="상세-코드"><a href="#상세-코드" class="headerlink" title="상세 코드"></a>상세 코드</h1><h2 id="백업"><a href="#백업" class="headerlink" title="백업"></a>백업</h2><ol>
-<li><p>백업 repository 생성</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PUT /_snapshot/test_statistics_backup</span><br><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;fs&quot;,</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">    &quot;location&quot;: &quot;/backup/elasticsearch&quot;,</span><br><span class="line">    &quot;compress&quot;: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>snapshot 생성</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT /_snapshot/test_statistics_backup/test-2018.12.06?wait_for_completion=true</span><br><span class="line">&#123;</span><br><span class="line">  &quot;indices&quot;: &quot;test-*&quot;,</span><br><span class="line">  &quot;ignore_unavailable&quot;: true,</span><br><span class="line">  &quot;include_global_state&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a><a href="#%EA%B2%B0%EB%A1%A0" title="결론"></a>결론</h1><p>2번 방법으로 진행하고, 해당 디렉토리를 tar 압축하여 별도의 백업서버에 저장하는 방법이 좋을듯합니다.</p>
+<h1 id="상세-코드"><a href="#상세-코드" class="headerlink" title="상세 코드"></a><a href="#%EC%83%81%EC%84%B8-%EC%BD%94%EB%93%9C" title="상세 코드"></a>상세 코드</h1><h2 id="백업"><a href="#백업" class="headerlink" title="백업"></a><a href="#%EB%B0%B1%EC%97%85" title="백업"></a>백업</h2><ol>
+<li>백업 repository 생성</li>
 </ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PUT /_snapshot/test_statistics_backup</span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;type&quot;</span>: <span class="string">&quot;fs&quot;</span>,</span><br><span class="line">	<span class="string">&quot;settings&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;location&quot;</span>: <span class="string">&quot;/backup/elasticsearch&quot;</span>,</span><br><span class="line">		<span class="string">&quot;compress&quot;</span>: <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>snapshot 생성</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT /_snapshot/test_statistics_backup/test-2018.12.06?wait_for_completion=<span class="literal">true</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;indices&quot;</span>: <span class="string">&quot;test-*&quot;</span>,</span><br><span class="line">	<span class="string">&quot;ignore_unavailable&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;include_global_state&quot;</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <p>기본적으로 비동기로 처리되기 때문에, wait_for_completion 파라미터를 주어서, snapshot 생성 종료여부를 확인한다.</p>
 <ol start="3">
-<li><p>snapshot 삭제</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /_snapshot/test_statistics_backup/test-2018.12.06</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>repository 삭제</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /_snapshot/test_statistics_backup</span><br></pre></td></tr></table></figure>
-</li>
+<li>snapshot 삭제</li>
 </ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /_snapshot/test_statistics_backup/test-2018.12.06</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>repository 삭제</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /_snapshot/test_statistics_backup</span><br></pre></td></tr></table></figure>
+
+
 <p>snapshot이 있는 상태에서 repository를 삭제한다고 snapshot이 같이 삭제되지는 않는다.<br>동일 name으로 repository를 다시 생성하면, snapshot은 살아 있다.</p>
 <ol start="5">
-<li>특정 repository의 스냅샷 목록 확인<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_cat/snapshots/test_statistics_backup?v</span><br></pre></td></tr></table></figure>
-</li>
+<li>특정 repository의 스냅샷 목록 확인</li>
 </ol>
-<h2 id="복구"><a href="#복구" class="headerlink" title="복구"></a>복구</h2><ol>
-<li>특정 snapshot 을 이용한 복구<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /_snapshot/test_statistics_backup/test-2018.12.06/_restore</span><br><span class="line">&#123;</span><br><span class="line">  &quot;indices&quot;: &quot;test-*&quot;,</span><br><span class="line">  &quot;ignore_unavailable&quot;: true,</span><br><span class="line">  &quot;include_global_state&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_cat/snapshots/test_statistics_backup?v</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="복구"><a href="#복구" class="headerlink" title="복구"></a><a href="#%EB%B3%B5%EA%B5%AC" title="복구"></a>복구</h2><ol>
+<li>특정 snapshot 을 이용한 복구</li>
 </ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /_snapshot/test_statistics_backup/test-2018.12.06/_restore</span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;indices&quot;</span>: <span class="string">&quot;test-*&quot;</span>,</span><br><span class="line">	<span class="string">&quot;ignore_unavailable&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;include\_global\_state&quot;</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <p>indices 파라미터를 주지 않으면 전체 복구.</p>
 <ol start="2">
-<li>open 상태의 index 복구<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST /test-*/_close</span><br><span class="line"></span><br><span class="line">POST /_snapshot/test_statistics_backup/test-2018.12.06/_restore</span><br><span class="line">&#123;</span><br><span class="line">  &quot;indices&quot;: &quot;test-*&quot;,</span><br><span class="line">  &quot;ignore_unavailable&quot;: true,</span><br><span class="line">  &quot;include_global_state&quot;: false</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">POST /test-*/_open</span><br></pre></td></tr></table></figure>
-</li>
+<li>open 상태의 index 복구</li>
 </ol>
-<h1 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h1><p><a href="http://knight76.tistory.com/entry/Elasticsearch-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC" target="_blank" rel="noopener">http://knight76.tistory.com/entry/Elasticsearch-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC</a><br><a href="https://qbox.io/blog/elasticsearch-data-snapshots-restore-tutorial" target="_blank" rel="noopener">https://qbox.io/blog/elasticsearch-data-snapshots-restore-tutorial</a><br>[<a href="http://jjeong.tistory.com/tag/elasticsearch?page=1(http://jjeong.tistory.com/tag/elasticsearch?page=1)]" target="_blank" rel="noopener">http://jjeong.tistory.com/tag/elasticsearch?page=1(http://jjeong.tistory.com/tag/elasticsearch?page=1)]</a><br><a href="https://lahuman.github.io/elastic_dump" target="_blank" rel="noopener">https://lahuman.github.io/elastic_dump</a><br><a href="https://github.com/taskrabbit/elasticsearch-dump" target="_blank" rel="noopener">https://github.com/taskrabbit/elasticsearch-dump</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST /test-*/_close</span><br><span class="line"></span><br><span class="line">POST /_snapshot/test_statistics_backup/test-2018.12.06/_restore</span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;indices&quot;</span>: <span class="string">&quot;test-*&quot;</span>,</span><br><span class="line">	<span class="string">&quot;ignore_unavailable&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="string">&quot;include\_global\_state&quot;</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">POST /test-*/_open</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="참고"><a href="#참고" class="headerlink" title="참고"></a><a href="#%EC%B0%B8%EA%B3%A0" title="참고"></a>참고</h1><p><a target="_blank" rel="noopener" href="http://knight76.tistory.com/entry/Elasticsearch-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC">http://knight76.tistory.com/entry/Elasticsearch-%EB%B0%B1%EC%97%85%EA%B3%BC-%EB%B3%B5%EA%B5%AC</a><br><a target="_blank" rel="noopener" href="https://qbox.io/blog/elasticsearch-data-snapshots-restore-tutorial">https://qbox.io/blog/elasticsearch-data-snapshots-restore-tutorial</a><br><a target="_blank" rel="noopener" href="http://jjeong.tistory.com/tag/elasticsearch?page=1(http://jjeong.tistory.com/tag/elasticsearch?page=1)%5D">http://jjeong.tistory.com/tag/elasticsearch?page=1(http://jjeong.tistory.com/tag/elasticsearch?page=1)</a><br><a target="_blank" rel="noopener" href="https://lahuman.github.io/elastic_dump">https://lahuman.github.io/elastic_dump</a><br><a target="_blank" rel="noopener" href="https://github.com/taskrabbit/elasticsearch-dump">https://github.com/taskrabbit/elasticsearch-dump</a></p>
 
 
                 
@@ -308,7 +323,7 @@
 
                     
                         <li>
-                            <a href="https://github.com/lovekmg/lovekmg.github.io" target="_blank">
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -323,7 +338,7 @@
 
                     
                 </ul>
-                <p class="copyright text-muted">&copy; 2019 lovekmg<br></p>
+                <p class="copyright text-muted">&copy; 2022 John Doe<br></p>
                 <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
                 <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
             </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <!-- Head tag -->
 <head>
@@ -13,12 +13,12 @@
     
 
     
-        <meta name="description" content="기억력의 한계를 극복하기 위한 blog"/>
+        <meta name="description" content="nginx-error-page-셋팅요즘 웹서비스에서는 error 페이지도 “사이트목적에 맞는 활동”을 할수 있는 “공간”으로 인식하고 있는듯하다.ex) 유명 포탈 사이트들은 404 Not Found 페이지에 광고(비슷한 뭔가?)가 나오는 경우도 본듯하다.즉, 더이상 e"/>
     
 
     <!--Author-->
     
-        <meta name="author" content="lovekmg"/>
+        <meta name="author" content="John Doe"/>
     
 
     <!--Open Graph Title-->
@@ -28,11 +28,11 @@
 
     <!--Open Graph Description-->
     
-        <meta property="og:description" content="기억력의 한계를 극복하기 위한 blog"/>
+        <meta property="og:description" content="nginx-error-page-셋팅요즘 웹서비스에서는 error 페이지도 “사이트목적에 맞는 활동”을 할수 있는 “공간”으로 인식하고 있는듯하다.ex) 유명 포탈 사이트들은 404 Not Found 페이지에 광고(비슷한 뭔가?)가 나오는 경우도 본듯하다.즉, 더이상 e"/>
     
 
     <!--Open Graph Site Name-->
-        <meta property="og:site_name" content="lovekmg 기술 블로그"/>
+        <meta property="og:site_name" content="Hexo"/>
 
     <!--Type page-->
     
@@ -42,7 +42,7 @@
     <!--Page Cover-->
     
     
-        <meta property="og:image" content="https://lovekmg.github.iohttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+        <meta property="og:image" content="http://example.comimg/home-bg.jpg"/>
     
 
         <meta name="twitter:card" content="summary_large_image"/>
@@ -50,20 +50,20 @@
     
 
     
-        <meta name="twitter:image" content="https://lovekmg.github.iohttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+        <meta name="twitter:image" content="http://example.comimg/home-bg.jpg"/>
     
 
     <!-- Title -->
     
-    <title>nginx-error-page-setting - lovekmg 기술 블로그</title>
+    <title>nginx-error-page-setting - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
 
     <!-- Custom Fonts -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -82,23 +82,12 @@
 
     <!-- Google Analytics -->
     
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-125048379-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
-
 
 
     <!-- favicon -->
     
 
-</head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 
 <body>
@@ -115,7 +104,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Lovekmg Blog</a>
+            <a class="navbar-brand" href="/">Configurable Title</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -155,7 +144,7 @@
                     </li>
                 
                     <li>
-                        <a href="https://github.com/lovekmg/lovekmg.github.io">
+                        <a target="_blank" rel="noopener" href="https://github.com/klugjo/hexo-theme-clean-blog">
                             
                                 <i class="fa fa-github fa-stack-2x"></i>
                             
@@ -173,7 +162,7 @@
     <!-- Page Header -->
 <!-- Set your background image for this header in your post front-matter: cover -->
 
-<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -212,6 +201,11 @@
                 </div>
                 <div class="col-lg-4 col-md-5 post-categories">
                     
+                        
+
+<a href="/categories/old-posts/">old-posts</a>
+
+                    
                 </div>
             
 
@@ -220,16 +214,21 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h1 id="nginx-error-page-셋팅"><a href="#nginx-error-page-셋팅" class="headerlink" title="nginx error page 셋팅"></a>nginx error page 셋팅</h1><p>요즘 웹서비스에서는 error 페이지도 “사이트목적에 맞는 활동”을 할수 있는 “공간”으로 인식하고 있는듯하다.<br>ex) 유명 포탈 사이트들은 404 Not Found 페이지에 광고(비슷한 뭔가?)가 나오는 경우도 본듯하다.<br>즉, 더이상 error page는 예전처럼 단순히 error page는 아니게 되었다.</p>
-<p>nginx 에서는 이러한 error page를 403, 404, 500 등 http status code에 따라 설정하여 노출할수 있다.<br>설정 방법은 <a href="https://docs.nginx.com/nginx/admin-guide/web-server/web-server/#handling-errors" target="_blank" rel="noopener">nginx 공식 문서</a>를 참고.</p>
-<p>간단히 정리하면<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_page</span> <span class="number">404</span> /error.html;</span><br></pre></td></tr></table></figure></p>
+                <h1 id="nginx-error-page-셋팅"><a href="#nginx-error-page-셋팅" class="headerlink" title="nginx-error-page-셋팅"></a>nginx-error-page-셋팅</h1><p>요즘 웹서비스에서는 error 페이지도 “사이트목적에 맞는 활동”을 할수 있는 “공간”으로 인식하고 있는듯하다.<br>ex) 유명 포탈 사이트들은 404 Not Found 페이지에 광고(비슷한 뭔가?)가 나오는 경우도 본듯하다.<br>즉, 더이상 error page는 예전처럼 단순히 error page는 아니게 되었다.</p>
+<p>nginx 에서는 이러한 error page를 403, 404, 500 등 http status code에 따라 설정하여 노출할수 있다.<br>설정 방법은 <a target="_blank" rel="noopener" href="https://docs.nginx.com/nginx/admin-guide/web-server/web-server/#handling-errors">nginx 공식 문서</a>를 참고.</p>
+<p>간단히 정리하면</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_page</span> <span class="number">404</span> /<span class="literal">error</span>.html;</span><br></pre></td></tr></table></figure>
+
 <p>정도가 되겠다.(nginx.conf에서 원하는 server, location등의 블럭안에 넣으면 된다.)</p>
-<p>근데 여기까지면 이글을 안썼지.<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_page</span> <span class="number">404</span> = /error.html;</span><br></pre></td></tr></table></figure></p>
-<p>을 하고 크롬에서 확인해보면  http status code가 200이다.</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_page</span> <span class="number">404</span> =<span class="number">404</span> /error.html;</span><br></pre></td></tr></table></figure>
-<p>을 하고 크롬에서 확인해보면  http status code가 404이다.</p>
+<p>근데 여기까지면 이글을 안썼지.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_page</span> <span class="number">404</span> = /<span class="literal">error</span>.html;</span><br></pre></td></tr></table></figure>
+
+<p>을 하고 크롬에서 확인해보면 http status code가 200이다.</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_page</span> <span class="number">404</span> =<span class="number">404</span> /<span class="literal">error</span>.html;</span><br></pre></td></tr></table></figure>
+
+<p>을 하고 크롬에서 확인해보면 http status code가 404이다.</p>
 <p>둘의 공통점은 error.html 페이지가 노출이 된다는것이고,<br>http status code가 달랐다.</p>
-<p>사실 이 글은 <a href="https://docs.nginx.com/nginx/admin-guide/web-server/web-server/#handling-errors" target="_blank" rel="noopener">nginx 공식 문서</a>를 잘 읽어봤으면 작성하지 않았을수도 있는 글이다.<br>역시 기본(레퍼런스)이 중요하구나!!를 다시한번 깨닫게 되는순간….ㅡ.,ㅡ;;</p>
+<p>사실 이 글은 <a target="_blank" rel="noopener" href="https://docs.nginx.com/nginx/admin-guide/web-server/web-server/#handling-errors">nginx 공식 문서</a>를 잘 읽어봤으면 작성하지 않았을수도 있는 글이다.<br>역시 기본(레퍼런스)이 중요하구나!!를 다시한번 깨닫게 되는순간….ㅡ.,ㅡ;;</p>
 
 
                 
@@ -262,7 +261,7 @@
 
                     
                         <li>
-                            <a href="https://github.com/lovekmg/lovekmg.github.io" target="_blank">
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -277,7 +276,7 @@
 
                     
                 </ul>
-                <p class="copyright text-muted">&copy; 2019 lovekmg<br></p>
+                <p class="copyright text-muted">&copy; 2022 John Doe<br></p>
                 <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
                 <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
             </div>
