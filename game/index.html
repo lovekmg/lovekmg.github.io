@@ -11,24 +11,82 @@
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
   <style>
     body.game-page { padding-top: 51px; background: #1a1a2e; color: #eee; }
-    .game-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 51px); padding: 1rem; }
-    .game-wrap h1 { font-size: 1.25rem; margin-bottom: 0.5rem; color: #eee; }
-    .game-inner { display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+    .game-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: flex-start;
+      min-height: calc(100vh - 51px);
+      padding: 1rem 1rem 2rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .game-wrap h1 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); margin-bottom: 0.75rem; color: #eee; }
+    /* 넓은 화면: 보드 + 사이드 가로 배치, 보드는 최대 640px까지 확대 */
+    .game-inner {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: clamp(1rem, 3vw, 2.5rem);
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    /* 10x20 보드 — 셀 크기는 그리드 fr로 균등, 전체 너비는 뷰포트/최대너비 반응형 */
     #board {
       display: grid;
-      grid-template-columns: repeat(10, 24px);
-      grid-template-rows: repeat(20, 24px);
-      gap: 1px;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(20, 1fr);
+      width: min(92vw, 640px);
+      max-width: 100%;
+      aspect-ratio: 10 / 20;
+      gap: 2px;
       background: #0f0f1a;
-      padding: 4px;
+      padding: clamp(4px, 1vw, 8px);
       border-radius: 8px;
       border: 2px solid #16213e;
+      box-sizing: border-box;
+      flex: 0 0 auto;
     }
-    .cell { width: 24px; height: 24px; background: #16213e; border-radius: 2px; }
+    .cell {
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+      background: #16213e;
+      border-radius: 2px;
+    }
     .cell.filled { border: 1px solid rgba(255,255,255,0.15); }
-    .side { min-width: 120px; }
-    .side p { margin: 0.35rem 0; font-size: 0.9rem; color: #eee; }
-    .keys { font-size: 0.8rem; color: #889; margin-top: 1rem; line-height: 1.6; }
+    .side {
+      min-width: 140px;
+      flex: 0 1 auto;
+    }
+    .side p { margin: 0.35rem 0; font-size: clamp(0.85rem, 1.8vw, 1rem); color: #eee; }
+    .keys { font-size: clamp(0.75rem, 1.5vw, 0.9rem); color: #889; margin-top: 1rem; line-height: 1.6; }
+    /* 좁은 화면: 세로 스택, 보드는 가로 꽉 채우되 세로 높이는 뷰포트 고려 */
+    @media (max-width: 700px) {
+      .game-inner {
+        flex-direction: column;
+        align-items: center;
+        max-width: 100%;
+      }
+      /* 세로가 긴 화면: 높이 기준으로 맞춰 한 화면에 들어오게 */
+      #board {
+        width: auto;
+        height: min(58vh, 520px);
+        aspect-ratio: 10 / 20;
+        max-width: 96vw;
+      }
+      .side {
+        min-width: unset;
+        width: 100%;
+        max-width: 360px;
+        text-align: center;
+      }
+    }
+    @media (min-width: 1200px) {
+      #board { width: min(720px, 50vw); }
+    }
     .game-wrap button {
       margin-top: 0.5rem;
       padding: 0.5rem 1rem;
