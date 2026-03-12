@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="간단 테트리스 - lovekmg 블로그"/>
+  <title>Game - lovekmg 블로그</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+  <style>
+    body.game-page { padding-top: 51px; background: #1a1a2e; color: #eee; }
+    .game-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 51px); padding: 1rem; }
+    .game-wrap h1 { font-size: 1.25rem; margin-bottom: 0.5rem; color: #eee; }
+    .game-inner { display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(10, 24px);
+      grid-template-rows: repeat(20, 24px);
+      gap: 1px;
+      background: #0f0f1a;
+      padding: 4px;
+      border-radius: 8px;
+      border: 2px solid #16213e;
+    }
+    .cell { width: 24px; height: 24px; background: #16213e; border-radius: 2px; }
+    .cell.filled { border: 1px solid rgba(255,255,255,0.15); }
+    .side { min-width: 120px; }
+    .side p { margin: 0.35rem 0; font-size: 0.9rem; color: #eee; }
+    .keys { font-size: 0.8rem; color: #889; margin-top: 1rem; line-height: 1.6; }
+    .game-wrap button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      background: #e94560;
+      border: none;
+      color: #fff;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .game-wrap button:hover { filter: brightness(1.1); }
+    .over { color: #e94560; font-weight: bold; }
+    .navbar-custom .navbar-nav > li > a { color: inherit; }
+  </style>
+</head>
+<body class="game-page">
+  <!-- 블로그와 동일한 네비 (lovekmg.github.io) + Game 메뉴 -->
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">menu</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/">Home</a></li>
+          <li><a href="/archives">Archives</a></li>
+          <li><a href="/tags">Tags</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li class="active"><a href="/game/">Game</a></li>
+          <li><a target="_blank" rel="noopener" href="https://github.com/lovekmg/lovekmg.github.io"><i class="fa fa-github fa-stack-2x"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="game-wrap">
+    <h1>간단 테트리스</h1>
+    <div class="game-inner">
+      <div id="board"></div>
+      <div class="side">
+        <p>점수: <strong id="score">0</strong></p>
+        <p>줄: <strong id="lines">0</strong></p>
+        <p id="status"></p>
+        <button type="button" id="btn">시작 / 다시</button>
+        <div class="keys">
+          ← → 이동<br>
+          ↑ 회전<br>
+          ↓ 빠르게 내리기<br>
+          스페이스: 바로 내리기
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script>
+    const COLS = 10, ROWS = 20;
+    const COLORS = {
+      I: '#00f5ff', O: '#ffeb3b', T: '#9c27b0',
+      S: '#4caf50', Z: '#f44336', J: '#2196f3', L: '#ff9800'
+    };
+    function M(...rows) { return rows; }
+    const SHAPES = {
+      I: M(['....','####','....','....'],['..#.','..#.','..#.','..#.'],['....','....','####','....'],['.#..','.#..','.#..','.#..']),
+      O: M(['....','.##.','.##.','....']),
+      T: M(['....','.#..','###.','....'],['....','..#.','.##.','..#.'],['....','....','###.','.#..'],['....','..#.','##..','..#.']),
+      S: M(['....','.##.','##..','....'],['....','.#..','.##.','..#.']),
+      Z: M(['....','##..','.##.','....'],['....','..#.','.##.','.#..']),
+      J: M(['....','#...','###.','....'],['....','..#.','..#.','.##.'],['....','....','###.','..#.'],['....','.##.','.#..','.#..']),
+      L: M(['....','..#.','###.','....'],['....','.#..','.#..','.##.'],['....','....','###.','#...'],['....','##..','..#.','..#.'])
+    };
+    let grid = [], current = null, score = 0, lines = 0, timer = null, gameOver = false;
+    const boardEl = document.getElementById('board');
+    const scoreEl = document.getElementById('score');
+    const linesEl = document.getElementById('lines');
+    const statusEl = document.getElementById('status');
+    function emptyGrid() { grid = Array.from({ length: ROWS }, () => Array(COLS).fill(null)); }
+    function buildBoardDOM() {
+      boardEl.innerHTML = '';
+      for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+        const d = document.createElement('div'); d.className = 'cell'; boardEl.appendChild(d);
+      }
+    }
+    function getCells() { return boardEl.querySelectorAll('.cell'); }
+    function pieceBlocks(type, rot, px, py) {
+      const mats = SHAPES[type], mat = mats[rot % mats.length], blocks = [];
+      for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) if (mat[r][c] === '#') blocks.push({ x: px + c, y: py + r });
+      return blocks;
+    }
+    function valid(blocks) {
+      for (const b of blocks) {
+        if (b.x < 0 || b.x >= COLS || b.y >= ROWS) return false;
+        if (b.y >= 0 && grid[b.y][b.x]) return false;
+      }
+      return true;
+    }
+    function spawn() {
+      const types = Object.keys(SHAPES), type = types[Math.floor(Math.random() * types.length)];
+      current = { type, rot: 0, x: 3, y: 0 };
+      if (!valid(pieceBlocks(type, 0, 3, 0))) {
+        gameOver = true; statusEl.textContent = '게임 오버'; statusEl.className = 'over';
+        if (timer) clearInterval(timer); timer = null; return false;
+      }
+      return true;
+    }
+    function merge() {
+      const blocks = pieceBlocks(current.type, current.rot, current.x, current.y), color = COLORS[current.type];
+      for (const b of blocks) if (b.y >= 0) grid[b.y][b.x] = color;
+    }
+    function clearLines() {
+      let cleared = 0;
+      for (let y = ROWS - 1; y >= 0; y--) {
+        if (grid[y].every(c => c)) { grid.splice(y, 1); grid.unshift(Array(COLS).fill(null)); cleared++; y++; }
+      }
+      if (cleared) { lines += cleared; score += [0,100,300,500,800][cleared]||800; linesEl.textContent = lines; scoreEl.textContent = score; }
+    }
+    function tick() {
+      if (gameOver || !current) return;
+      const next = pieceBlocks(current.type, current.rot, current.x, current.y + 1);
+      if (valid(next)) current.y++; else { merge(); clearLines(); spawn(); }
+      draw();
+    }
+    function draw() {
+      const cells = getCells();
+      cells.forEach((el, i) => {
+        const x = i % COLS, y = Math.floor(i / COLS);
+        el.className = 'cell'; el.style.background = grid[y][x] || '#16213e';
+        if (grid[y][x]) el.classList.add('filled');
+      });
+      if (current && !gameOver) {
+        const blocks = pieceBlocks(current.type, current.rot, current.x, current.y), color = COLORS[current.type];
+        for (const b of blocks) {
+          if (b.y < 0 || b.y >= ROWS || b.x < 0 || b.x >= COLS) continue;
+          const el = cells[b.y * COLS + b.x]; el.style.background = color; el.classList.add('filled');
+        }
+      }
+    }
+    function tryMove(dx, dy) {
+      if (!current || gameOver) return;
+      if (valid(pieceBlocks(current.type, current.rot, current.x + dx, current.y + dy))) {
+        current.x += dx; current.y += dy; draw(); return true;
+      }
+      return false;
+    }
+    function tryRotate() {
+      if (!current || gameOver) return;
+      const mats = SHAPES[current.type], newRot = (current.rot + 1) % mats.length;
+      if (valid(pieceBlocks(current.type, newRot, current.x, current.y))) { current.rot = newRot; draw(); return; }
+      for (const kick of [-1,1,-2,2]) {
+        if (valid(pieceBlocks(current.type, newRot, current.x + kick, current.y))) {
+          current.rot = newRot; current.x += kick; draw(); return;
+        }
+      }
+    }
+    function hardDrop() {
+      if (!current || gameOver) return;
+      while (tryMove(0, 1)) {}
+      merge(); clearLines(); spawn(); draw();
+    }
+    function start() {
+      emptyGrid(); score = 0; lines = 0; gameOver = false;
+      scoreEl.textContent = '0'; linesEl.textContent = '0'; statusEl.textContent = ''; statusEl.className = '';
+      if (timer) clearInterval(timer); spawn(); draw(); timer = setInterval(tick, 600);
+    }
+    document.getElementById('btn').addEventListener('click', start);
+    document.addEventListener('keydown', (e) => {
+      if (gameOver && e.code !== 'Space') return;
+      switch (e.code) {
+        case 'ArrowLeft': e.preventDefault(); tryMove(-1, 0); break;
+        case 'ArrowRight': e.preventDefault(); tryMove(1, 0); break;
+        case 'ArrowDown': e.preventDefault(); tryMove(0, 1); break;
+        case 'ArrowUp': e.preventDefault(); tryRotate(); break;
+        case 'Space': e.preventDefault(); hardDrop(); break;
+      }
+    });
+    emptyGrid(); buildBoardDOM(); statusEl.textContent = '시작 버튼을 누르세요'; draw();
+  </script>
+</body>
+</html>
