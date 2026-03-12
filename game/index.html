@@ -14,8 +14,8 @@
     .game-wrap {
       display: flex; flex-direction: column; align-items: center;
       justify-content: flex-start;
-      min-height: calc(100vh - 51px);
-      padding: 1rem 1rem 2rem;
+      min-height: 0;
+      padding: 1rem 1rem 1.5rem;
       width: 100%;
       box-sizing: border-box;
     }
@@ -32,20 +32,21 @@
       margin: 0 auto;
       flex-wrap: wrap;
     }
-    /* 10x20 보드 — 셀 크기는 그리드 fr로 균등, 전체 너비는 뷰포트/최대너비 반응형 */
+    /* 10x20 보드 — 세로가 너무 길어지지 않게 높이 기준으로 크기 결정 (가로는 비율에 맞춰 자동) */
     #board {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
       grid-template-rows: repeat(20, 1fr);
-      width: min(92vw, 640px);
-      max-width: 100%;
+      height: min(52vh, 480px);
+      width: auto;
+      max-width: 96vw;
       aspect-ratio: 10 / 20;
+      box-sizing: border-box;
       gap: 2px;
       background: #0f0f1a;
       padding: clamp(4px, 1vw, 8px);
       border-radius: 8px;
       border: 2px solid #16213e;
-      box-sizing: border-box;
       flex: 0 0 auto;
     }
     .cell {
@@ -73,7 +74,7 @@
       /* 세로가 긴 화면: 높이 기준으로 맞춰 한 화면에 들어오게 */
       #board {
         width: auto;
-        height: min(58vh, 520px);
+        height: min(48vh, 420px);
         aspect-ratio: 10 / 20;
         max-width: 96vw;
       }
@@ -84,8 +85,9 @@
         text-align: center;
       }
     }
-    @media (min-width: 1200px) {
-      #board { width: min(720px, 50vw); }
+    /* 큰 화면에서도 세로 과다 방지 — 높이 상한만 살짝 올림 */
+    @media (min-width: 900px) {
+      #board { height: min(58vh, 520px); }
     }
     .game-wrap button {
       margin-top: 0.5rem;
